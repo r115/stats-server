@@ -26,10 +26,19 @@ class ProfileManager {
         }
 
         if (array_key_exists('last_name', $payload)){
-            $profile->middle_name = $payload['last_name'];
+            $profile->last_name = $payload['last_name'];
         }
 
         $profile->save();
+
+        return $profile;
+    }
+
+    /**
+     * Find a profiles given the id
+     */
+    public function find($id) : Profile {
+        $profile = Profile::find($id);
 
         return $profile;
     }

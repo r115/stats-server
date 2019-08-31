@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @todo Implement fractals
+ * @todo Write integration tests
+ * @todo Code optimization
+ */
+
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
@@ -7,7 +13,7 @@ use App\Models\Profile;
 use Illuminate\Http\Request;
 use R115\Profile\ProfileManager;
 
-class ProfileController extends Controller {
+class ProfilesController extends Controller {
     /**
      * Initialize the profile manager.
      *
@@ -41,5 +47,21 @@ class ProfileController extends Controller {
         }
 
         app()->abort(403);
+    }
+
+    /**
+     * Show a single profile
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show($id) {
+        $profile = $this->manager->find($id);
+
+        if ($profile) {
+            return response()->json($profile);
+        }
+
+        app()->abort(404);
     }
 }
