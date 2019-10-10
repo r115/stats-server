@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * Resource controller for the profiles.
+ *
  * @todo Implement fractals
  * @todo Write integration tests
  * @todo Code optimization
@@ -33,7 +35,7 @@ class ProfilesController extends Controller {
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function create(Request $request) {
+    public function store(Request $request) {
         $request->validate([
             'first_name' => 'required|max:25',
             'last_name' => 'max:25',
