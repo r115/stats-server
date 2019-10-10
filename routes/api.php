@@ -14,9 +14,7 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware(['auth:api'])->prefix('/v1')->group(function () {
-    Route::post('/profiles', 'Api\v1\ProfilesController@create')
-        ->name('profiles.create');
-
-    Route::get('/profiles/{id}', 'Api\v1\ProfilesController@show')
-        ->name('profiles.show');
+    Route::apiResources([
+        'profiles' => 'Api\v1\ProfilesController',
+    ]);
 });
