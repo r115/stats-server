@@ -35,7 +35,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "R115\\": "Stats"
+            "R115\\": "Stats/"
         },
         "classmap": [
             "database/seeds",
