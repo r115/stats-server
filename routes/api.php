@@ -18,3 +18,8 @@ Route::middleware(['auth:api'])->prefix('/v1')->group(function () {
         'profiles' => 'Api\v1\ProfilesController',
     ]);
 });
+
+Route::prefix('/v1')->group(function () {
+    Route::post('/register', 'Api\v1\Auth\RegisterController@register')
+        ->name('api.auth.register');
+});
