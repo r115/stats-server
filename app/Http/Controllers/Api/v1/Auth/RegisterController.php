@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\v1\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller{
     /**
@@ -19,7 +21,11 @@ class RegisterController extends Controller{
      *
      * This relies on machine-machine auth so an api key has to be provided as a part of the request.
      *
+     * @todo Use repositories for model manipulations.
+     *
      * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
      *
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -36,11 +42,15 @@ class RegisterController extends Controller{
                 ->exists();
 
             if (!$client){
-                app()->abort(403);
+                return response()->json([
+                    'message' => 'Access denied'
+                ], 403);
             }
         }
         else {
-            app()->abort(403);
+            return response()->json([
+                'message' => 'Access denied'
+            ], 403);
         }
 
         $this->validate($request, [
@@ -49,5 +59,14 @@ class RegisterController extends Controller{
             'email' => 'required|email|unique:users|max:35',
             'name' => 'required|max:20',
         ]);
+
+        //Create a new user
+        $user = new User();
+        $user->email = $request->get('email');
+        $user->password = Hash::make($request->get('password'));
+        $user->name = $request->get('name');
+        $user->save();
+
+        return response()->json($user,200);
     }
 }
