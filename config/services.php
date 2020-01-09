@@ -33,5 +33,9 @@ return [
     'sparkpost' => [
         'secret' => env('SPARKPOST_SECRET'),
     ],
+    'africastalking' => [
+        'username' => 'bernard_nandwa',
+        'secret' => '44fdea325b31b5f679771c2f79ea95695bbd7f3ac6677c637f97cb5bbf955806',
+    ],
 
 ];
